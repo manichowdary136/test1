@@ -1,0 +1,146 @@
+logging:
+  file: flow.log
+
+cx-flow:
+  #contact: admin@cx.com
+  bug-tracker: Json
+  bug-tracker-impl:
+    - CxXml
+    - Csv
+    - Json
+    - GitLab
+    - GitHub
+    - Azure
+    - Rally
+  filter-severity:
+    - High
+    - Medium
+    - Low
+    - Informational
+    filter-status:
+     - New
+     - Reoccured
+  filter-state:
+     - Confirmed
+     - Urgent
+  mitre-url: https://cwe.mitre.org/data/definitions/%s.html
+  iki-url: https://checkmarx.atlassian.net/wiki/spaces/AS/pages/79462432/Remediation+Guidance
+  codebash-url: https://cxa.codebashing.com/courses/
+  track-application-only: false
+  web-hook-queue: 20
+  scan-result-queue: 8
+  break-build: false
+  scan-resubmit: false
+  preserve-project-name: false
+  http-connection-timeout: xxx # milliseconds - default 30000
+  http-read-timeout: xxx # milliseconds - default 120000
+  mail:
+     host: smtp.gmail.com
+     port: 587
+     username: xxx
+     password: xxx
+     enabled: true
+     notification: true # default is false
+     cc: myemail@mycompany.com # comma-separated list of e-mails
+  zip-exclude: \.git/.*, .*\.png
+
+checkmarx:
+  version: 9.0 # Not required for CxSAST version 8.x
+  username: xxx
+  password: xxx
+  client-secret: xxx
+  base-url: https://cx.aws.checkmarx.com
+  multi-tenant: true
+  scan-preset: Checkmarx Default
+  configuration: Default Configuration
+  team: /CxServer/SP/Machina # \CxServer\SP\Machina for CxSAST 8.x
+  scan-timeout: 120 # Webhook and --scan command line only, number of minutes
+  jira-project-field: jira-project
+  jira-issuetype-field: jira-issuetype
+  jira-custom-field: jira-fields
+  jira-assignee-field: jira-assignee
+  preserve-xml: true
+  url: ${checkmarx.base-url}/cxrestapi
+  # WSDL Config
+  portal-url: ${checkmarx.base-url}/cxwebinterface/Portal/CxWebService.asmx
+  sdk-url: ${checkmarx.base-url}/cxwebinterface/SDK/CxSDKWebService.asmx
+  portal-wsdl: ${checkmarx.base-url}/Portal/CxWebService.asmx?wsdl
+  sdk-wsdl: ${checkmarx.base-url}/SDK/CxSDKWebService.asmx?wsdl
+  project-script: D:\\tmp\CxProject.groovy # default empty/not used
+  team-script: D:\\tmp\CxTeam.groovy # default empty/not used
+  custom-state-map:
+    "5": "SUSPICIOUS"
+  post-action-postback-id: 123456
+  settings-override: true #default false if not provide
+  cx-branch: false
+  scan-queuing: true
+  scan-queuing-timeout: 720 # Webhook and --scan command line only, number of minutes
+jira:
+  url: https://xxxx.atlassian.net
+  username: XXXXX
+  token: XXXXX
+  project: <JIRA PROJECT KEY>
+  issue-type: <JIRA ISSUE TYPE>
+  label-prefix: <CUSTOM PREFIX NAME >
+  priorities:
+     Critical: Highest
+     High: High
+     Medium: Medium
+     Low: Low
+     Informational: Lowest
+  open-transition: In Review
+  close-transition: Done
+  open-status:
+     - To Do
+     - In Progress
+     - In Review
+  closed-status:
+     - Done
+  fields:
+     - type: result
+       name: application
+       jira-field-name: Application
+       jira-field-type: label
+     - type: result
+       name: cve
+       jira-field-name: CVEs
+       jira-field-type: label
+     - type: result
+       name: cwe
+       jira-field-name: CWEs
+       jira-field-type: label
+     - type: result
+       name: category
+       jira-field-name: Category
+       jira-field-type: label
+     - type: result
+       name: loc
+       jira-field-name: LOC
+       jira-field-type: label
+       jira-default-value: XXXXX
+
+json:
+  file-name-format: "[NAMESPACE]-[REPO]-[BRANCH]-[TIME].json"
+  data-folder: "C:\\tmp"
+ 
+cx-xml:
+  file-name-format: "[NAMESPACE]-[REPO]-[BRANCH]-[TIME].xml"
+  data-folder: "C:\\tmp"
+iast:
+  url: https://cxloyalty-iast.checkmarx.net/
+  ssl-certificate-file-path: "/var/lib/jenkins/jobs/CxFlow/workspace/server.cer"
+  manager-port: 8380
+  username: Manikantathalapaneni.Chowdary@cxLoyalty.com
+  password: A09BE4WhPgMI+wf
+  update-token-seconds: 250  # CxAccessControl token timeout
+  filter-severity:
+    - HIGH
+    - MEDIUM
+    - LOW
+    - INFO
+  thresholds-severity:
+    HIGH: 1
+    MEDIUM: 3
+    LOW: 10
+    INFO: -1
+
